@@ -263,6 +263,11 @@ nav .hamburger-menu{
   flex-wrap: wrap;
  }
 
+ .about .row .content{
+  margin-top: 16px;
+  padding: 0;
+ }
+
 }
 /* for Mobile  */
 @media (max-width: 450px){
