@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+/* Navbar  */
+nav{
+  background-color:#2b2d42;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 50px;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+}
+
+nav .brand a{
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 400;
+  text-decoration: none;
+}
+nav .brand span{
+  font-size: 20px;
+  color: #ef233c;
+  font-weight: 200;
+}
+nav .nav-menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav .nav-menu .menu-list{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menu-list li{
+  margin: 24px;
+  list-style: none;
+}
+.menu-list li a{
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 200;
+  font-size: 16px;
+  transition: all 0.2s linear;
+}
+.menu-list li a:hover{
+  color: #ef223c;
+}
+.menu-list li a::after{
+  content: '';
+  display: block;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #d90429;
+  transform: scale(0);
+  transition: 0.3s linear;
+}
+.menu-list li a:hover::after{
+  transform: scale(0.5);
+  
+}
+
+nav .nav-menu .button{
+  background: #d90429;
+  border: none;
+  padding: 8px 30px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: medium;
+  cursor: pointer;
+  margin-left: 24px;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+}
+nav .nav-menu .button:hover{
+  background: #f84b68;
+}
+
+nav .nav-menu .hamburger-menu{
+  color: #ffffff;
+  font-size: 32px;
+}
+/* End navbar  */
+
+/* Section home Start */
+
+#home{
+  background: #8d99ae;
+  padding: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+#home .home-text{
+  display: flex;
+  flex-direction: column;
+}
+.home-text .heading{
+  padding-top: 40px;
+  padding-bottom: 40px;
+  /* background-color: #d90429; */
+}
+.heading h5{
+  font-size: 24px;
+  font-weight: 200;
+  color: #ffffff;
+}
+.heading p{
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 900;
+}
+.heading p span{
+  color: #2b2d42;
+}
+.home-text .button a{ 
+  background: #d90429;
+  border: none;
+  padding: 8px 30px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: medium;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+}
+.home-text .button a:hover{ 
+  background: #f84b68;
+}
+
+#home .home-image{
+  display: flex;
+  align-items: center;
+}
+/* Section home End */
