@@ -8,11 +8,11 @@
 .vscode
 .DS_Store
 .parcel-cache
-tailwind.config.js
-tailwindcss.css
-package.json
-package-lock.json
-.prettierrc.json
+# tailwind.config.js
+# tailwindcss.css
+# package.json
+# package-lock.json
+# .prettierrc.json
 # index.html
 yarn.lock
 yarn-error.log
