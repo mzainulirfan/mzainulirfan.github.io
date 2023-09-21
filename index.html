@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +8,17 @@
   <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 </head>
 <body class="font-poppins">
-<div class="w-full h-screen px-20 py-8 bg-gradient-to-tr from-indigo-600 via-pink-700 to-blue-500">
+<section id="home" class="w-full h-screen px-20 py-8 bg-gradient-to-tr from-indigo-600 via-pink-700 to-blue-500">
  <div class="flex flex-col h-full">
    <div class="flex flex-col items-start lg:space-y-6  flex-1">
      <div  class="font-semibold text-[15px] lg:text-[60px] flex flex-col -space-y-8 text-slate-200">
-       <h1>Portofolio Of - </h1>
+       <h1 class="font-light">Portofolio Of _ </h1>
        <h1 class="tracking-wider text-[50px] lg:text-[150px] uppercase drop-shadow-lg">mzainulirfan.</h1>
       </div>
       <div class="block">
         <button class="border-2 shadow-md border-slate-200 text-slate-200 hover:bg-slate-400/50 hover:scale-105  px-8 py-4 rounded-full transition-all duration-700 ">by @mzainulirfan</button>
-        <button class="border-2 shadow-md inline-flex space-x-3 border-slate-200 text-slate-200 hover:bg-slate-400/50 hover:scale-105  px-8 py-4 rounded-full transition-all duration-700 "><span>my Work</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" /></svg></button>
+        <a href="#work" class="border-2 shadow-md inline-flex space-x-3 border-slate-200 text-slate-200 hover:bg-slate-400/50 hover:scale-105  px-8 py-4 rounded-full transition-all duration-700 "><span>my Work</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" /></svg></a>
       </div>
     </div>
     <div class="grid grid-cols-3 gap-4 w-full mx-auto">
@@ -45,6 +45,14 @@
       </div>
     </div>
   </div>
+</section>
+<section id="work" class="w-full h-screen bg-gradient-to-tl flex items-center justify-center from-indigo-500 via-emerald-400 to-indigo-400"> 
+<div class="flex flex-row space-x-4">
+  <a href="work/blog" class="border px-14 font-semibold text-white hover:bg-slate-300 transition-all duration-700 hover:text-indigo-600 py-4 rounded-full">my blog</a>
+  <a href="work/portofolio/" class="border px-14 font-semibold text-white hover:bg-slate-300 transition-all duration-700 hover:text-indigo-600 py-4 rounded-full">my Portofolio</a>
+  <a href="work/login/" class="border px-14 font-semibold text-white hover:bg-slate-300 transition-all duration-700 hover:text-indigo-600 py-4 rounded-full">my Login Page</a>
+  <a href="work/dashboard/" class="border px-14 font-semibold text-white hover:bg-slate-300 transition-all duration-700 hover:text-indigo-600 py-4 rounded-full">my Dashboard Page</a>
 </div>
+</section>
 </body>
 </html>
