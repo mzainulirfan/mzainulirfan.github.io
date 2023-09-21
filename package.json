@@ -5,6 +5,6 @@
     "tailwindcss": "^3.3.3"
   },
   "scripts": {
-    "dev": "npx tailwindcss -i tailwindcss.css -o main.css --watch"
+    "dev": "npx tailwindcss -i tailwindcss.css -o app.css --watch"
   }
 }
