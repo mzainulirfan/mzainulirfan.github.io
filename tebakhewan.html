@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tebak Nama Hewan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-blue-50 min-h-screen flex items-center justify-center p-6">
+    <div class="bg-white rounded-xl shadow-lg p-6 max-w-md w-full text-center">
+      <h1 class="text-2xl font-bold text-blue-700 mb-4">Tebak Nama Hewan!</h1>
+
+      <img
+        id="animal-image"
+        src=""
+        alt="Animal"
+        class="w-full h-60 object-cover rounded-lg mb-4" />
+
+      <div id="options" class="grid grid-cols-2 gap-4 mb-4"></div>
+
+      <div id="message" class="text-lg font-semibold text-green-600 mb-2"></div>
+
+      <button
+        id="next-btn"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+        Hewan Selanjutnya
+      </button>
+    </div>
+
+    <audio
+      id="cheer-sound"
+      src="https://www.myinstants.com/media/sounds/cheering.mp3"></audio>
+
+    <script>
+      const PEXELS_API_KEY =
+        "2aw1ss9IHpkhviKYOqSx4Uq451lH6Ox2XwZRb0FGvMSvt3xR8xB0oTUJ";
+
+      const animalData = [
+        { name: "Gajah", keyword: "elephant" },
+        { name: "Harimau", keyword: "tiger" },
+        { name: "Kucing", keyword: "cat" },
+        { name: "Anjing", keyword: "dog" },
+        { name: "Kuda", keyword: "horse" },
+        { name: "Panda", keyword: "panda" },
+        { name: "Burung", keyword: "bird" },
+      ];
+
+      const imageElement = document.getElementById("animal-image");
+      const optionsContainer = document.getElementById("options");
+      const messageElement = document.getElementById("message");
+      const nextButton = document.getElementById("next-btn");
+      const cheerSound = document.getElementById("cheer-sound");
+
+      let currentAnimal = null;
+
+      function getRandomAnimal() {
+        const index = Math.floor(Math.random() * animalData.length);
+        return animalData[index];
+      }
+
+      function shuffleArray(array) {
+        return array.sort(() => Math.random() - 0.5);
+      }
+
+      async function fetchAnimalImage(keyword) {
+        const res = await fetch(
+          `https://api.pexels.com/v1/search?query=${keyword}&per_page=1`,
+          {
+            headers: {
+              Authorization: PEXELS_API_KEY,
+            },
+          }
+        );
+        const data = await res.json();
+        return (
+          data.photos[0]?.src.medium ||
+          "https://via.placeholder.com/600x400?text=Gambar+tidak+tersedia"
+        );
+      }
+
+      async function renderNewQuestion() {
+        messageElement.textContent = "";
+        optionsContainer.innerHTML = "";
+        currentAnimal = getRandomAnimal();
+
+        const imageUrl = await fetchAnimalImage(currentAnimal.keyword);
+        imageElement.src = imageUrl;
+
+        let options = [currentAnimal.name];
+        while (options.length < 4) {
+          const random = getRandomAnimal();
+          if (!options.includes(random.name)) {
+            options.push(random.name);
+          }
+        }
+
+        const shuffled = shuffleArray(options);
+        shuffled.forEach((name) => {
+          const btn = document.createElement("button");
+          btn.textContent = name;
+          btn.className =
+            "bg-gray-200 hover:bg-yellow-300 py-2 px-4 rounded text-lg font-medium transition";
+          btn.onclick = () => checkAnswer(name);
+          optionsContainer.appendChild(btn);
+        });
+      }
+
+      function checkAnswer(selectedName) {
+        if (selectedName === currentAnimal.name) {
+          messageElement.textContent = "Yeay! Benar 🎉";
+          cheerSound.play();
+        } else {
+          messageElement.textContent = "Ups, coba lagi 😅";
+        }
+      }
+
+      nextButton.onclick = renderNewQuestion;
+
+      renderNewQuestion();
+    </script>
+  </body>
+</html>
