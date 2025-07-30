@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Penjumlahan Ceria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="min-h-screen flex items-center justify-center bg-yellow-100 font-[Comic_Sans_MS] px-4"
+  >
+    <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md text-center">
+      <div class="text-3xl sm:text-4xl mb-2">?? Ayo Hitung!</div>
+      <div id="scoreDisplay" class="text-lg sm:text-xl text-gray-700 mb-4">
+        Poin: 0 | Soal ke-1/10
+      </div>
+
+      <!-- Card Soal -->
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <div
+          id="card1"
+          class="bg-orange-300 text-white text-3xl sm:text-4xl font-bold w-20 h-20 sm:w-24 sm:h-24 rounded-xl flex items-center justify-center shadow-lg"
+        >
+          2
+        </div>
+        <div class="text-3xl font-bold">+</div>
+        <div
+          id="card2"
+          class="bg-pink-400 text-white text-3xl sm:text-4xl font-bold w-20 h-20 sm:w-24 sm:h-24 rounded-xl flex items-center justify-center shadow-lg"
+        >
+          3
+        </div>
+      </div>
+
+      <!-- Input Jawaban -->
+      <input
+        id="answer"
+        type="number"
+        placeholder="Jawaban"
+        class="text-center text-2xl border-2 border-yellow-400 rounded-lg px-4 py-2 w-32 mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+      />
+
+      <br />
+      <button
+        onclick="checkAnswer()"
+        class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold px-6 py-2 rounded-lg text-lg transition"
+      >
+        Cek Jawaban
+      </button>
+
+      <!-- Feedback -->
+      <div id="feedback" class="text-2xl mt-6 hidden font-semibold"></div>
+      <div class="text-5xl mt-2" id="emoji">??</div>
+      <div
+        id="finalMessage"
+        class="mt-6 text-xl font-bold text-green-600 hidden"
+      >
+        ?? Selamat! Kamu menyelesaikan semua soal!
+      </div>
+    </div>
+
+    <script>
+      let num1, num2;
+      let currentQuestion = 1;
+      let totalQuestions = 10;
+      let score = 0;
+      let repeatInterval;
+      let questionText = "";
+
+      const card1 = document.getElementById("card1");
+      const card2 = document.getElementById("card2");
+      const answerInput = document.getElementById("answer");
+      const feedback = document.getElementById("feedback");
+      const emoji = document.getElementById("emoji");
+      const scoreDisplay = document.getElementById("scoreDisplay");
+      const finalMessage = document.getElementById("finalMessage");
+
+      // Tekan ENTER untuk submit
+      answerInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          checkAnswer();
+        }
+      });
+
+      function updateScoreDisplay() {
+        scoreDisplay.innerText = `Poin: ${score} | Soal ke-${currentQuestion}/${totalQuestions}`;
+      }
+
+      function speakQuestion(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "id-ID";
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utterance);
+      }
+
+      function startRepeatQuestion() {
+        speakQuestion(questionText);
+        repeatInterval = setInterval(() => {
+          speakQuestion(questionText);
+        }, 5000);
+      }
+
+      function stopRepeatQuestion() {
+        clearInterval(repeatInterval);
+        speechSynthesis.cancel();
+      }
+
+      function generateQuestion() {
+        if (currentQuestion > totalQuestions) {
+          showFinalMessage();
+          return;
+        }
+
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
+
+        card1.innerText = num1;
+        card2.innerText = num2;
+        answerInput.value = "";
+        feedback.classList.add("hidden");
+        emoji.innerText = "??";
+        updateScoreDisplay();
+
+        questionText = `Berapa ${num1} tambah ${num2}?`;
+        startRepeatQuestion();
+      }
+
+      function checkAnswer() {
+        const userAnswer = parseInt(answerInput.value);
+        const correct = num1 + num2;
+
+        if (isNaN(userAnswer)) return;
+
+        stopRepeatQuestion();
+
+        if (userAnswer === correct) {
+          feedback.innerText = "? Benar!";
+          feedback.className =
+            "text-green-600 mt-6 font-bold text-2xl animate-bounce";
+          emoji.innerText = "??";
+          score += 10;
+        } else {
+          feedback.innerText = "? Salah!";
+          feedback.className = "text-red-600 mt-6 font-bold text-2xl";
+          emoji.innerText = "??";
+          score = Math.max(0, score - 5);
+        }
+
+        feedback.classList.remove("hidden");
+        currentQuestion++;
+        setTimeout(generateQuestion, 1800);
+      }
+
+      function showFinalMessage() {
+        finalMessage.classList.remove("hidden");
+        emoji.innerText = score === totalQuestions * 10 ? "??" : "??";
+        feedback.innerText = `Skor Akhir: ${score}`;
+        feedback.className = "text-blue-600 mt-4 font-bold text-2xl";
+        feedback.classList.remove("hidden");
+
+        const finalText =
+          score === 100
+            ? "Selamat! Kamu sempurna!"
+            : `Kamu sudah selesai! Skor kamu adalah ${score}`;
+        speakQuestion(finalText);
+      }
+
+      generateQuestion();
+    </script>
+  </body>
+</html>
